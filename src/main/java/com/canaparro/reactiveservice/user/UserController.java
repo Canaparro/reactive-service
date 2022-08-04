@@ -1,6 +1,7 @@
 package com.canaparro.reactiveservice.user;
 
 import java.net.URI;
+import java.time.Duration;
 
 import org.reactivestreams.Publisher;
 import org.springframework.http.MediaType;
@@ -13,8 +14,6 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import com.canaparro.reactiveservice.websocket.UserRecordEventPublisher;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -32,6 +31,12 @@ public class UserController {
 	@GetMapping
 	public Publisher<UserRecord> findAllUsers() {
 		return userService.findAllUsers();
+	}
+
+
+	@GetMapping(value = "/stream", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
+	public Publisher<UserRecord> findAllUsersStream() {
+		return userService.findAllUsers().delayElements( Duration.ofSeconds( 1 ) );
 	}
 
 	@GetMapping("/{id}")
@@ -56,11 +61,6 @@ public class UserController {
 	@DeleteMapping("/{id}")
 	public void delete( @PathVariable final long id ) {
 		userService.delete( id );
-	}
-
-	@GetMapping(value = "/stream", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
-	public Publisher<UserRecord> findAllUsersStream() {
-		return userService.findAllUsers();
 	}
 
 	@GetMapping(value = "/sse", produces = MediaType.TEXT_EVENT_STREAM_VALUE)

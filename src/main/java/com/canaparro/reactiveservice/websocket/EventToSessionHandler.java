@@ -6,6 +6,7 @@ import org.springframework.web.reactive.socket.WebSocketMessage;
 import org.springframework.web.reactive.socket.WebSocketSession;
 
 import com.canaparro.reactiveservice.user.UserRecordCreatedEvent;
+import com.canaparro.reactiveservice.user.UserRecordEventPublisher;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 

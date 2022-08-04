@@ -1,4 +1,4 @@
-package com.canaparro.reactiveservice.websocket;
+package com.canaparro.reactiveservice.user;
 
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.Executor;
